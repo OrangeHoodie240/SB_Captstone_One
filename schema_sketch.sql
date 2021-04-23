@@ -5,8 +5,8 @@
 CREATE TABLE users(
   id SERIAL PRIMARY KEY, 
   username VARCHAR(30) NOT NULL UNIQUE, 
-  email VARCHAR(30) NOT NULL UNIQUE, 
-  password VARCHAR(30) NOT NULL UNIQUE,
+  email VARCHAR(320) NOT NULL UNIQUE, 
+  password TEXT NOT NULL UNIQUE,
   active_workout INT NULL);
 
 CREATE TABLE workouts(

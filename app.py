@@ -1,5 +1,5 @@
-from flask import Flask, jsonify
-from models import db, connect_db
+from flask import Flask, jsonify, request
+from models import db, connect_db, User, Workout, WorkoutDay, Exercise
 import os 
 
 app = Flask(__name__)
@@ -11,4 +11,6 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 
 connect_db(app)
+
+
 
