@@ -1,0 +1,19 @@
+nav {
+    width: 100vw; 
+    height: 5vh; 
+    background-color: blue;
+    color: red; 
+}
+
+#icon {
+    color: white; 
+}
+
+.loading-div { 
+    color: green; 
+    font-size: 3rem;
+}
+
+.up, .down, .delete {
+    cursor: pointer;
+}

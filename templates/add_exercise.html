@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Exercise {% endblock %}
+{% block header %} Add Exercise {% endblock %}
+
+{% block main %} 
+    <div class='loading-div' id='loading'>
+        <i class="fas fa-dumbbell fa-spin"></i>
+        LOADING
+        <i class="fas fa-dumbbell fa-spin"></i>
+    </div>
+    <div id='filter_add_exercise'>
+        <label for='muscle'>
+            Muscle: 
+            <select name='muscle' id='muscle' disabled></select>
+        </label>
+        <label for='equipment'>
+            Equipment: 
+            <select name='equipment' id='equipment' disabled></select>
+        </label>
+    </div>
+
+    <form id='add_exercise' action='/days/{{ id }}/exercises/add' method='POST'>
+        <label for='exercise' >
+            Exercise: 
+            <select name='exercise' id='exercise' disabled></select>
+        </label>
+        <label for='sets'>
+            Sets: 
+            <input type='number' min='1' max='50' value='3' name='sets' id='sets' disabled/>
+        </label>
+        <label for='sets'>
+            Reps: 
+            <input type='number' min='1' max='50' value='12' name='reps' id='reps' disabled/>
+        </label>
+
+        <input type='hidden' value='' name='exerciseName' id='exerciseName' />
+
+        <input type='submit' id='submit' disabled/>
+    </form>
+
+    <div>
+        <h2>Exercise Description</h2>
+        <span class='description'></span>
+    </div>
+
+
+    <script type='text/javascript' src='{{ url_for("static", filename="get_data.js") }}'></script>
+    <script type='text/javascript' src='{{ url_for("static", filename="add_exercise.js") }}'></script>
+{% endblock %}

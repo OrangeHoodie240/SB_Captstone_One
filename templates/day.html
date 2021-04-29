@@ -1,0 +1,66 @@
+{% extends 'base.html' %} 
+
+{% block title %} {{ day.weekday }} {% endblock %}
+
+{% block header %} {{ day.weekday }} {% endblock %}
+
+{% block main %}
+    {% if day.exercises | length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Exercise
+                </th>
+                <th>
+                    Sets
+                </th>   
+                <th>
+                    Reps
+                </th>                
+                <th>
+                    Description
+                </th>
+                <th>Remove</th>                
+            </tr>
+        </thead>
+        <tbody id='exercises-tbody' data-day-id='{{ day.id }}' data-workout-id='{{ day.workout_id }}'>
+            {% for ex in day.exercises %}
+                <tr>
+                    <td>
+                        {{ ex.name }}
+                    </td>
+                    <td>
+                    {{ ex.sets }}
+                    </td>
+                    <td>
+                        {{ ex.reps }}
+                    </td>
+                    <td>
+                        Change
+                    </td>
+                    <td>
+                        <i class="fa fa-trash delete" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
+                    </td>
+                    <td>
+                        {% if ex.order != 1 %}
+                            <i class="fa fa-arrow-up up" aria-hidden="true"  data-exercise-id='{{ ex.id }}'></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ex.order != last %}
+                            <i class="fa fa-arrow-down down" aria-hidden="true"  data-exercise-id='{{ ex.id }}'></i>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if day.exercises | length <= 12 %}
+        <a href='/days/{{ day.id }}/exercises/add'>Add Exercise</a>
+    {% endif %}
+
+
+    <script type='text/javascript' src='{{ url_for("static", filename="day.js") }}'></script>
+{% endblock %}

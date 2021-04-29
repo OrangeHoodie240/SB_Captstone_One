@@ -24,6 +24,8 @@ CREATE TABLE workout_days(
 CREATE TABLE exercises(
   id SERIAL PRIMARY KEY, 
   workout_day_id INT REFERENCES workout_days(id) NOT NULL, 
-  exercise INT NOT NULL, 
+  exercise INT NOT NULL,
+  name VARCHAR(60) NOT NULL, 
   sets INT NOT NULL CHECK(sets > 0 AND sets < 51), 
-  reps INT NOT NULL CHECK(reps > 0 AND reps < 51));
+  reps INT NOT NULL CHECK(reps > 0 AND reps < 51), 
+  order INT NOT NULL CHECK(order > 0));

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Workouts {% endblock %}
+
+{% block header %} Workouts {% endblock %}
+
+
+{% block main %} 
+    {% if workouts | length == 0 %} 
+        <p>No workouts yet</p>
+    {% else %}
+        <ul>                
+            {% for workout in workouts %} 
+                <a href='/workouts/{{ workout.id }}'>{{ workout.name }}</a>
+            {% endfor %}
+        </ul> 
+    {% endif %}
+    <a href='/workouts/add'>Add Workout</a>
+
+
+
+{% endblock %}

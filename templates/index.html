@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Home{% endblock %}
+{% block header %}Welcome To Workout Planner{% endblock %}
+
+
+{% block main %}
+{% if 'user_id' in session %}
+    {% if day %}
+    <h2>Next Workout On {{ day.weekday }}</h2>
+    {% if day.exercises | length > 0 %}
+<table>
+    <thead>
+        <tr>
+            <th>
+                Exercise
+            </th>
+            <th>
+                Sets
+            </th>
+            <th>
+                Reps
+            </th>
+            <th>
+                Description
+            </th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ex in day.exercises %}
+        <tr>
+            <td>
+                {{ ex.name }}
+            </td>
+            <td>
+                {{ ex.sets }}
+            </td>
+            <td>
+                {{ ex.reps }}
+            </td>
+            <td>
+                Change
+            </td>
+            <td>
+                Delete Icon
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        {% endif %}
+    {% endif %}
+{% else %}
+<p>Welcome, please login or register to begin creating your workouts!</p>
+{% endif %}
+
+{% endblock %}

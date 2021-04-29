@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+
+{% block title %} {{ workout.name }} {% endblock %}
+{% block header %} {{ workout.name }} {% endblock %}
+
+{% block main %}
+    <ul>
+        {% for day in workout.days %} 
+            <li><a href='/workouts/{{ workout.id }}/days/{{ day.id }}'>{{ day.weekday }}</a> <a href='/workouts/{{ workout.id }}/days/{{ day.id }}/delete'>Delete</a></li>
+        {% endfor %}
+    </ul>
+    {% if workout.days | length < 7 %}
+        <a href='/workouts/{{ workout.id }}/days/add'>Add Workout Day</a>
+    {% endif %}
+
+
+    {% if is_active %} 
+        <p>This is your active workout</p>
+    {% else %}
+        <button id='make_active'>Make this your active workout</button>
+    {% endif %}
+
+
+    <input type='hidden' id='workout_id' value='{{ workout.id }}' />
+
+    <script type='text/javascript' src='{{ url_for("static", filename="workout.js") }}'></script>
+
+{% endblock %}
