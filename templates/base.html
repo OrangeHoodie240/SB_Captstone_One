@@ -16,7 +16,7 @@
             <a href='/users/{{ session.get("user_id") }}/workouts'>Workouts</a>
         {% else %}
             <a href='/users/login'>login</a>
-            <a href='/users/register'register></a>
+            <a href='/users/register'>register</a>
         {% endif %}
     </nav>
     <h1>{% block header %}{% endblock %}</h1>
