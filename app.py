@@ -7,7 +7,7 @@ from utility import find_closest_workout, quicksort
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'some secreet'
+app.config['SECRET_KEY'] = os.environ.get('ENV_VAR_NAME', 'something secrety here')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'ENV_VAR_NAME', 'postgresql:///capstone_1')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
