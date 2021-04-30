@@ -2,7 +2,7 @@
 
 {% block title %} {{ day.weekday }} {% endblock %}
 
-{% block header %} {{ day.weekday }} {% endblock %}
+{% block header %} {{ day.workout.name }} {{ day.weekday }} {% endblock %}
 
 {% block main %}
     {% if day.exercises | length > 0 %}
@@ -21,7 +21,12 @@
                 <th>
                     Description
                 </th>
-                <th>Remove</th>                
+                <th>
+                    Remove
+                </th> 
+                <th>
+                    Edit 
+                </th>               
             </tr>
         </thead>
         <tbody id='exercises-tbody' data-day-id='{{ day.id }}' data-workout-id='{{ day.workout_id }}'>
@@ -30,17 +35,20 @@
                     <td>
                         {{ ex.name }}
                     </td>
-                    <td>
+                    <td class='sets'>
                     {{ ex.sets }}
                     </td>
-                    <td>
+                    <td class='reps'>
                         {{ ex.reps }}
                     </td>
                     <td>
-                        Change
+                        <a href='/exercises/description?id={{ ex.exercise }}&name={{ ex.name }}'>description</a>
                     </td>
                     <td>
                         <i class="fa fa-trash delete" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-edit edit" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
                     </td>
                     <td>
                         {% if ex.order != 1 %}

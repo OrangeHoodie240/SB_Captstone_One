@@ -1,10 +1,2 @@
-Bugs: 
-	1. When adding an exercise, if the user attempts to add the exercise that is initially generated on loading w/o first selecting 
-	   it, it will not capture the name when the exercise is saved. 
-
 To do: 
-	1. Allow users to add more than one exercise at once. 
 	2. Allow users to view the description for an exercise they have already added. 
-	3. Allow users to change their username and email. 
-	4. Allow users to change the name of an workout.
-	5. Allow users to change the reps and sets of an exercise. 

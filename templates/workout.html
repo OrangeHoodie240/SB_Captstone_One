@@ -17,11 +17,23 @@
     {% if is_active %} 
         <p>This is your active workout</p>
     {% else %}
+        <br />
         <button id='make_active'>Make this your active workout</button>
+        <br />
     {% endif %}
 
-
     <input type='hidden' id='workout_id' value='{{ workout.id }}' />
+
+    
+    <label for='name'>
+        Change Name
+        <input type='text' value='{{ workout.name }}' id='name' name='name' />
+        <button id='change-button'>Change</button>
+    </label>
+
+    <br /> 
+
+
 
     <script type='text/javascript' src='{{ url_for("static", filename="workout.js") }}'></script>
 

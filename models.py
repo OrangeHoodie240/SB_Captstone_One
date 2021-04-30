@@ -204,6 +204,16 @@ class Workout(db.Model):
     def get_for(cls, user_id):
         return Workout.query.filter(Workout.user_id == user_id).all()
 
+    @classmethod
+    def serialize(cls, id):
+        workout = Workout.get(id) 
+        serialized = dict() 
+        serialized['id'] = workout.id 
+        serialized['name'] = workout.name
+        serialized['user_id'] = workout.user_id
+
+        return serialized 
+
 
 class WorkoutDay(db.Model):
     __tablename__ = 'workout_days'
@@ -318,15 +328,12 @@ class Exercise(db.Model):
 
     @classmethod
     def all_for(cls, day_id):
-        exercise_ids = db.session.query(Exercise.id).filter(
-            Exercise.workout_day_id == day_id).all()
-        exercise_ids = [id for tup in exercise_ids for id in tup]
-        return exercise_ids
+        return Exercise.query.filter(Exercise.workout_day_id == day_id).all()
 
     @classmethod
     def add(cls, workout_day_id, exercise, sets, reps, name):
-        exercise_count = Exercise.query.filter(
-            Exercise.exercise == exercise).count()
+        exercise_count = Exercise.query.filter( (Exercise.workout_day_id == workout_day_id) &
+            (Exercise.exercise == exercise)).count()
         if exercise_count > 0:
             return None
 
@@ -346,9 +353,17 @@ class Exercise(db.Model):
         exer_obj = query.one_or_none()
         if exer_obj is None:
             return False
-
+        
+        order = exer_obj.order
+        workout_day_id = exer_obj.workout_day_id 
         query.delete()
         db.session.commit()
+
+        for ex in Exercise.query.filter(Exercise.workout_day_id == workout_day_id).all():
+            if ex.order > order: 
+                ex.order -= 1
+                db.session.commit()  
+
         return True
 
     @classmethod

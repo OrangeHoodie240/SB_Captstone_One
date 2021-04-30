@@ -4,6 +4,12 @@
 {% block header %} Add Exercise {% endblock %}
 
 {% block main %} 
+    <div id='workout-exercises-div-add-exercise'>
+       {% for ex in exercises %} 
+            {{ ex.order }}. {{ ex.name }}  
+       {% endfor %}
+    </div>
+
     <div class='loading-div' id='loading'>
         <i class="fas fa-dumbbell fa-spin"></i>
         LOADING
@@ -39,11 +45,15 @@
         <input type='submit' id='submit' disabled/>
     </form>
 
+    <input type='hidden' value='{{ id }}' id='day-id' />
+
     <div>
         <h2>Exercise Description</h2>
         <span class='description'></span>
     </div>
 
+
+    <a href='/workouts/{{ workout_id }}/days/{{ id }}'>Back To Routine</a>
 
     <script type='text/javascript' src='{{ url_for("static", filename="get_data.js") }}'></script>
     <script type='text/javascript' src='{{ url_for("static", filename="add_exercise.js") }}'></script>

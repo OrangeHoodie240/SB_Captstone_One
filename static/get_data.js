@@ -176,5 +176,6 @@ class ApiHandler {
             }
         }
 
+        elements['exerciseName'].value = exercise.children[0].innerText;
     }
 }

@@ -180,6 +180,13 @@ def workout_day(workout_id, day_id):
     return render_template('day.html', day=day, last=last)
 
 
+@app.route('/exercises/description', methods=['GET'])
+def exercise_description():
+    id = request.args.get('id')
+    name = request.args.get('name')
+
+    return render_template('description.html', id=id, name=name)
+
 @app.route('/api/days/<int:id>/', methods=['GET', 'OPTIONS'])
 def get_routine(id):
     if request.method == 'OPTIONS':
@@ -243,7 +250,7 @@ def add_exercise(id):
                  'error': None}
         }
     exercises = Exercise.all_for(id)
-    return render_template('add_exercise.html', id=day.id, prior_data=prior_data, exercises=exercises)
+    return render_template('add_exercise.html', workout_id=day.workout_id, id=day.id, prior_data=prior_data, exercises=exercises)
 
 
 @app.route('/workouts/<int:id>/active', methods=['POST', 'OPTIONS'])
@@ -263,6 +270,43 @@ def activate_workout(id):
     user.active_workout = id
     db.session.commit()
     return jsonify({'success': True})
+
+
+@app.route('/api/workouts/<int:id>', methods=['PATCH', 'OPTIONS'])
+def update_workout(id):
+
+    if request.method == 'OPTION':
+        return Response()
+
+    user_id = session.get('user_id', None)
+    if user_id is None:
+        return jsonify({'success': False}), 403
+
+    workout = Workout.get(id)
+    if workout.user.id != user_id:
+        return jsonify({'success': False}), 403
+
+    name = request.get_json().get('name')
+    Workout.update(id, name)
+
+    return jsonify({'success': True})
+
+
+@app.route('/api/workouts/<int:id>', methods=['GET', 'OPTIONS'])
+def get_workout(id):
+
+    if request.method == 'OPTION':
+        return Response()
+
+    user_id = session.get('user_id', None)
+    if user_id is None:
+        return jsonify({'success': False}), 403
+
+    workout = Workout.get(id)
+    if workout.user.id != user_id:
+        return jsonify({'success': False}), 403
+
+    return jsonify(Workout.serialize(id))
 
 
 @app.route('/api/exercises/<int:id>/move', methods=['POST', 'OPTIONS'])
@@ -288,6 +332,7 @@ def move_exercise(id):
 
     return jsonify({'success': True})
 
+
 @app.route('/api/exercises/<int:id>', methods=['DELETE', 'OPTIONS'])
 def delete_exercise(id):
     if request.method == 'OPTIONS':
@@ -303,3 +348,75 @@ def delete_exercise(id):
 
     Exercise.delete(ex.id)
     return jsonify({'success': True})
+
+
+@app.route('/api/exercises/<int:id>', methods=['PATCH', 'OPTIONS'])
+def update_exercise(id):
+
+    if request.method == 'OPTIONS':
+        return Response()
+
+    user_id = session.get('user_id', None)
+    if user_id is None:
+        return jsonify({'success': False}), 403
+
+    ex = Exercise.get(id)
+    if ex.day.workout.user.id != user_id:
+        return jsonify({'success': False}), 403
+
+    sets = request.get_json().get('sets')
+    reps = request.get_json().get('reps')
+    Exercise.update(id, sets=sets, reps=reps)
+
+    return jsonify({'success': True})
+
+
+@app.route('/api/days/<int:day_id>/exercises', methods=['POST', 'OPTIONS'])
+def post_exercise(day_id):
+
+    if request.method == 'OPTIONS':
+        return  Response()
+
+
+    user_id = session.get('user_id', None)
+    if user_id is None: 
+        return jsonify({'success': False}), 403 
+
+    day = WorkoutDay.get(day_id)
+    if user_id != day.workout.user.id:
+        return jsonify({'success': False}), 403 
+
+    data = request.get_json() 
+    exer_id = data.get('exercise')
+    name = data.get('name')
+    reps = data.get('reps')
+    sets = data.get('sets')
+    ex = Exercise.add(day.id, exer_id, sets, reps, name)
+
+    if ex is None: 
+        return jsonify({'success': False}), 403 
+
+    return jsonify({'success': True})
+
+
+
+
+@app.route('/api/days/<int:day_id>/exercises', methods=['GET', 'OPTIONS'])
+def get_exercises(day_id):
+
+    if request.method == 'OPTIONS':
+        return  Response()
+
+
+    user_id = session.get('user_id', None)
+    if user_id is None: 
+        return jsonify({'success': False}), 403 
+
+    day = WorkoutDay.get(day_id)
+    if user_id != day.workout.user.id:
+        return jsonify({'success': False}), 403 
+
+    
+    exercises = WorkoutDay.get_serialized_exercises(day_id)
+
+    return jsonify({'success': True, 'exercises': exercises})
