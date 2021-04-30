@@ -4,32 +4,39 @@
 {% block header %} {{ workout.name }} {% endblock %}
 
 {% block main %}
-    <ul>
         {% for day in workout.days %} 
-            <li><a href='/workouts/{{ workout.id }}/days/{{ day.id }}'>{{ day.weekday }}</a> <a href='/workouts/{{ workout.id }}/days/{{ day.id }}/delete'>Delete</a></li>
-        {% endfor %}
-    </ul>
-    {% if workout.days | length < 7 %}
-        <a href='/workouts/{{ workout.id }}/days/add'>Add Workout Day</a>
-    {% endif %}
-
+            <div class='list-group list-group-horizontal'>
+                <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}'>{{ day.weekday }}</a> 
+                <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}/delete'>Delete</a></li>
+            </div>
+            {% endfor %}
 
     {% if is_active %} 
-        <p>This is your active workout</p>
+        <p><span class='badge bg-light text-dark'>This is your active workout</span></p>
     {% else %}
         <br />
-        <button id='make_active'>Make this your active workout</button>
+        <div class='d-grid'>
+            <button class='btn btn-light' id='make_active'>Make this your active workout</button>
+        </div>
         <br />
     {% endif %}
 
-    <input type='hidden' id='workout_id' value='{{ workout.id }}' />
+    {% if workout.days | length < 7 %}
+        <div class='d-grid'>
+            <a class='btn btn-light' href='/workouts/{{ workout.id }}/days/add'>Add Workout Day</a>
+        </div>
+    {% endif %}
 
-    
     <label for='name'>
         Change Name
         <input type='text' value='{{ workout.name }}' id='name' name='name' />
         <button id='change-button'>Change</button>
     </label>
+
+    <input type='hidden' id='workout_id' value='{{ workout.id }}' />
+
+    
+
 
     <br /> 
 

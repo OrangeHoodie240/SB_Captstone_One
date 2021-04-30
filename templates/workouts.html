@@ -10,13 +10,14 @@
     {% if workouts | length == 0 %} 
         <p>No workouts yet</p>
     {% else %}
-        <ul>                
+        <div class='list-group'>                
             {% for workout in workouts %} 
-                <a href='/workouts/{{ workout.id }}'>{{ workout.name }}</a>
+                <a class='list-group-item' href='/workouts/{{ workout.id }}'>{{ workout.name }}</a>
             {% endfor %}
-        </ul> 
+        </div> 
     {% endif %}
-
-    <a href='/workouts/add'>Add Workout</a>
+    <div class='d-grid'>
+        <a class='btn btn-light' href='/workouts/add'>Add Workout</a>
+    </div>
     
 {% endblock %}

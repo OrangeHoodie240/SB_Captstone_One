@@ -6,9 +6,10 @@
 
 {% block main %}
     {% if day.exercises | length > 0 %}
-    <table>
+    <table class='table'>
         <thead>
             <tr>
+                <th></th>
                 <th>
                     Exercise
                 </th>
@@ -26,12 +27,19 @@
                 </th> 
                 <th>
                     Edit 
-                </th>               
+                </th>    
+                <th></th> 
+                <th></th>         
+                <th></th>          
+                <th></th>          
             </tr>
         </thead>
         <tbody id='exercises-tbody' data-day-id='{{ day.id }}' data-workout-id='{{ day.workout_id }}'>
             {% for ex in day.exercises %}
                 <tr>
+                    <td>
+                        {{ ex.order }}
+                    </td>
                     <td>
                         {{ ex.name }}
                     </td>
@@ -66,7 +74,9 @@
     </table>
     {% endif %}
     {% if day.exercises | length <= 12 %}
-        <a href='/days/{{ day.id }}/exercises/add'>Add Exercise</a>
+        <div class='d-grid'>
+            <a class='btn btn-light' href='/days/{{ day.id }}/exercises/add'>Add Exercise</a>
+        </div>    
     {% endif %}
 
 
