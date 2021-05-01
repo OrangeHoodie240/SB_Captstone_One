@@ -5,16 +5,27 @@
 {% block header %} Register {% endblock %}
 
 {% block main %}
-    <form method='POST'>
+    <form method='POST' class='login-register-form'>
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %} 
-            {{ field.label }} 
-            {{ field }}
-            {% for error in field.errors %} 
-                {{ error }}
-            {% endfor %}
+            <span>
+                {{ field.label }} 
+                {{ field }}
+            </span>
+
+
+            <small>
+                <span class='error-span'>
+                    {% for error in field.errors %} 
+                        {{ error }}
+                    {% endfor %}
+                </span>
+            </small>
         {% endfor %}
-        <button>Submit</button>
+
+        <span>
+            <input type='submit' value='register' class='btn btn-light' />
+        </span>
     </form>
 {% endblock %}

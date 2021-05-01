@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
 
 
 class WorkoutForm(FlaskForm):
-    name = StringField("Workout Name: ", validators=[InputRequired(message='Must specify name'), Length(max=30, message='Max of 30 characters')])
+    name = StringField("Name: ", validators=[InputRequired(message='Must specify name'), Length(max=30, message='Max of 30 characters')])
 
 class DayForm(FlaskForm):
     weekday = SelectField('Day Of Week', validators=[InputRequired(message='Must specify day')])

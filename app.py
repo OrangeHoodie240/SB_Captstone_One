@@ -137,13 +137,14 @@ def delete_workout(id):
         return redirect('/')
 
     workout = Workout.get(id)
-    if session.get('user_id') != workout.user_id:
+    user_id = workout.user_id
+    if session.get('user_id') != user_id:
         return redirect('/')
 
     Workout.delete(id)
     flash("Workout Deleted")
 
-    return redirect('/')
+    return redirect(f'/users/{user_id}/workouts')
 
 
 @app.route('/workouts/<int:workout_id>/days/<int:day_id>/delete', methods=['GET'])
@@ -158,7 +159,7 @@ def delete_day(workout_id, day_id):
     WorkoutDay.delete(day_id)
     flash("Workout Day Deleted")
 
-    return redirect('/')
+    return redirect(f'/workouts/{workout_id}')
 
 
 @app.route('/workouts/<int:workout_id>/days/<int:day_id>', methods=['GET', 'POST'])
