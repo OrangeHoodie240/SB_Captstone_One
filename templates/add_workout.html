@@ -9,27 +9,25 @@
     <br /> 
 
     <form method='POST' class='login-register-form bg-light'>
-        <br />
+        <h2>Add Workout</h2> <br />
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %}
-        <span>
             {{ field.label }}
             {{ field }}
+
+
+            {% for error in field.errors %}
+                <br />
+                <small class='error-span'>
+                        {{ error }}
+                  </small>
+            {% endfor %}
         </span>
-
-
-        <small>
-            <span class='error-span'>
-                {% for error in field.errors %}
-                {{ error }}
-                {% endfor %}
-            </span>
-
-        </small>
         {% endfor %}
+
         <span>
-            <input type='submit' value='Add Workout' class='btn btn-light' />
+            <input type='submit' value='Add Workout' class='btn btn-secondary' />
         </span>
 
     </form>

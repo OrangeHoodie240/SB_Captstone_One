@@ -20,6 +20,7 @@ Welcome To Workout Planner
 
         <thead>
             <tr>
+                <th></th>
                 <th>
                     Exercise
                 </th>
@@ -37,6 +38,9 @@ Welcome To Workout Planner
         <tbody>
             {% for ex in day.exercises %}
             <tr>
+                <td>
+                    {{ ex.order }}
+                </td>
                 <td>
                     {{ ex.name }}
                 </td>

@@ -5,6 +5,7 @@ import requests
 from forms import RegisterForm, LoginForm, WorkoutForm, DayForm
 from utility import find_closest_workout, quicksort
 
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'something secrety here')
@@ -72,9 +73,12 @@ def register():
             return redirect('/')
         else:
             if not User.username_valid(form.username.data):
-                flash('Username unavailable')
-            else:
-                flash('Email taken')
+                flash('Username unavailable or too short')
+            elif not User.email_valid(form.email.data):
+                flash('Email taken, invalid or too short')
+            elif not User.password_valid(form.password.data): 
+                flash('Password too short')
+            
 
     return render_template('register.html', form=form)
 
@@ -87,10 +91,13 @@ def add_workout():
     form = WorkoutForm()
     if form.validate_on_submit():
         name = form.name.data
-        workout = Workout.add(name, session['user_id'])
-        flash('Workout created')
-        return redirect(f'/workouts/{workout.id}')
-
+        workout = workout = Workout.add(name, session['user_id'])
+        if workout is not None: 
+            flash('Workout created')
+            return redirect(f'/workouts/{workout.id}')
+        else: 
+            form.name.errors.append('A workout with this name already exists')
+            
     return render_template('add_workout.html', form=form)
 
 

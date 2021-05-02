@@ -38,9 +38,12 @@ h1 {
 
 .login-register-form{
     display: grid;
-    grid-auto-columns: 5%;
-    padding-left: 40%;
-    min-width: 1%; 
+    grid-template-columns: 1fr 1fr;
+    row-gap: 3px;
+    padding: 5%;
+    width: 40%;
+    margin-left: auto; 
+    margin-right: auto;  
     margin-top: 10%;
     border-radius: 1%;
 }
@@ -99,7 +102,6 @@ h1 {
     min-width: 100px;
 }
 
-
 .change-workout-name-form {
     margin-left: 30%;
     margin-top: 3%;
@@ -112,6 +114,9 @@ h1 {
     }   
     .brand-lg {
         display: none;
+    }
+    .login-register-form {
+        width: 80%;
     }
 }
 

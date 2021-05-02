@@ -8,27 +8,25 @@
 <div class='register-img background'>
     <br />
     <form method='POST' class='login-register-form bg-light'>
-        <h2>Register</h2>
+        <h2>Register</h2> <br />
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %}
-        <span>
             {{ field.label }}
             {{ field }}
+
+
+            {% for error in field.errors %}
+                <br />
+                <small class='error-span'>
+                        {{ error }}
+                  </small>
+            {% endfor %}
         </span>
-
-
-        <small>
-            <span class='error-span'>
-                {% for error in field.errors %}
-                {{ error }}
-                {% endfor %}
-            </span>
-        </small>
         {% endfor %}
 
         <span>
-            <input type='submit' value='register' class='btn btn-light' />
+            <input type='submit' value='Register' class='btn btn-secondary' />
         </span>
     </form>
 </div>
