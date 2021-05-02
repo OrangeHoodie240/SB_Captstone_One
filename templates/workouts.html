@@ -6,18 +6,23 @@
 {% block header %} Workouts {% endblock %}
 
 
-{% block main %} 
-    {% if workouts | length == 0 %} 
+{% block main %}
+<div class='workouts-img background'>
+    <br />
+    <br />
+    <div class='bg-light'>
+        {% if workouts | length == 0 %}
         <p>No workouts yet</p>
-    {% else %}
-        <div class='list-group'>                
-            {% for workout in workouts %} 
-                <a class='list-group-item' href='/workouts/{{ workout.id }}'>{{ workout.name }}</a>
+        {% else %}
+        <div class='list-group'>
+            {% for workout in workouts %}
+            <a class='list-group-item' href='/workouts/{{ workout.id }}'>{{ workout.name }}</a>
             {% endfor %}
-        </div> 
-    {% endif %}
-    <div class='d-grid'>
-        <a class='btn btn-light' href='/workouts/add'>Add Workout</a>
+        </div>
+        {% endif %}
+        <div class='d-grid'>
+            <a class='btn btn-light' href='/workouts/add'>Add Workout</a>
+        </div>
     </div>
-    
+</div>
 {% endblock %}

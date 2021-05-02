@@ -2,54 +2,61 @@
 
 
 {% block title %}Home{% endblock %}
-{% block header %}Welcome To Workout Planner{% endblock %}
+{% block header %}
+Welcome To Workout Planner 
+    {% if day %} 
+        <span class='badge bg-dark text-white'>Next Workout On {{ day.weekday.upper() }}</span>
+    {% endif %}
+{% endblock %}
 
 
 {% block main %}
-{% if 'user_id' in session %}
+<div class='index-img background'>
+    <br />
+    {% if 'user_id' in session %}
     {% if day %}
-    <h2>Next Workout On {{ day.weekday }}</h2>
     {% if day.exercises | length > 0 %}
-<table class='table'>
-    <thead>
-        <tr>
-            <th>
-                Exercise
-            </th>
-            <th>
-                Sets
-            </th>
-            <th>
-                Reps
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for ex in day.exercises %}
-        <tr>
-            <td>
-                {{ ex.name }}
-            </td>
-            <td>
-                {{ ex.sets }}
-            </td>
-            <td>
-                {{ ex.reps }}
-            </td>
-            <td>
-                <a href='/exercises/description?id={{ ex.exercise }}&name={{ ex.name }}'>description</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-        {% endif %}
-    {% endif %}
-{% else %}
-<p>Welcome, please login or register to begin creating your workouts!</p>
-{% endif %}
+    <table class='table bg-light index-table'>
 
+        <thead>
+            <tr>
+                <th>
+                    Exercise
+                </th>
+                <th>
+                    Sets
+                </th>
+                <th>
+                    Reps
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ex in day.exercises %}
+            <tr>
+                <td>
+                    {{ ex.name }}
+                </td>
+                <td>
+                    {{ ex.sets }}
+                </td>
+                <td>
+                    {{ ex.reps }}
+                </td>
+                <td>
+                    <a href='/exercises/description?id={{ ex.exercise }}&name={{ ex.name }}'><i class="fas fa-info-circle text-dark"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endif %}
+    {% else %}
+    <p class='badge bg-dark text-white'>Welcome, please login or register to begin creating your workouts!</p>
+    {% endif %}
+</div>
 {% endblock %}

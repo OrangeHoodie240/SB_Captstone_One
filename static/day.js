@@ -23,6 +23,10 @@ function buildTable(data){
         let tr = document.createElement('tr'); 
 
         let td = document.createElement('td'); 
+        td.innerHTML = ex.order;
+        tr.append(td); 
+
+        td = document.createElement('td'); 
         td.innerHTML = ex.name;
         tr.append(td); 
 
@@ -37,7 +41,7 @@ function buildTable(data){
         tr.append(td); 
 
         td = document.createElement('td'); 
-        td.innerHTML = `<a href='/exercises/description?id=${ex.exercise }&name=${ ex.name }'>description</a>`;
+        td.innerHTML = `<a href='/exercises/description?id=${ex.exercise }&name=${ ex.name }'><i class="fas fa-info-circle text-dark"></i></a>`;
         tr.append(td); 
 
         td = document.createElement('td'); 
@@ -134,7 +138,7 @@ function addFields(ex){
 
     td = document.createElement('td');
     td.classList.add('editButton');
-    td.innerHTML = `<button>Save</button>`; 
+    td.innerHTML = `<button class='btn btn-secondary'>Save</button>`; 
     row.append(td);
 
     const setsField = row.querySelector('#setsField');
@@ -162,7 +166,7 @@ function addFields(ex){
 
     td = document.createElement('td');
     td.classList.add('cancelButton');
-    td.innerHTML = `<button>Cancel</button>`; 
+    td.innerHTML = `<button class='btn btn-secondary' >Cancel</button>`; 
     row.append(td);
 
     td.addEventListener('click', ()=>{

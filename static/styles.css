@@ -38,13 +38,72 @@ h1 {
 
 .login-register-form{
     display: grid;
-    grid-auto-columns: 5px;
-    width: 40%; 
-    margin-left: auto; 
-    margin-right: auto;
+    grid-auto-columns: 5%;
+    padding-left: 40%;
+    min-width: 1%; 
     margin-top: 10%;
+    border-radius: 1%;
 }
 
+.index-table{
+    margin-top: 5%;
+}
+
+.background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh; 
+}
+
+.index-img {
+    background-image: url('./index_bg.jfif');
+}
+
+.login-img {
+    background-image: url('./login_bg.jfif');
+}
+
+.register-img {
+    background-image: url('./register_bg.jfif');
+}
+
+.workouts-img {
+    background-image: url('./workouts_bg.jfif');
+}
+
+.workout-img {
+    background-image: url('./workout_bg.jfif');
+}
+
+.add-workout-img {
+    background-image: url('./add_workout_bg.jfif');
+}
+
+.add-workout-day-img {
+    background-image: url('./add_workout_day_bg.jfif');
+}
+
+.day-img {
+    background-image: url('./day_bg.jfif');
+}
+
+.add-exercise-img {
+    background-image: url('./add_exercise_bg.jfif');
+}
+
+.description-img {
+    background-image: url('./description_bg.jfif');
+}
+
+.add_day_field_label {
+    min-width: 100px;
+}
+
+
+.change-workout-name-form {
+    margin-left: 30%;
+    margin-top: 3%;
+}
 
 @media screen and (max-width: 600px){
     .brand-sm {

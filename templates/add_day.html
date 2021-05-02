@@ -1,20 +1,23 @@
-{% extends 'base.html' %}  
+{% extends 'base.html' %}
 
 {% block title %} Add Day {% endblock %}
 
 {% block header %} Add Day {% endblock %}
 
-{% block main %} 
-    <form method='POST'>
+{% block main %}
+<div class='add-workout-day-img background'>
+    <br /> 
+    <form method='POST' class='login-register-form bg-light'>
         {{ form.hidden_tag() }}
-
-        {% for field in form if field.widget.input_type != 'hidden' %} 
-            {{ field.label }} 
-            {{ field }}
-            {% for error in field.errors %} 
-                {{ error }}
-            {% endfor %}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+                <span class='add_day_field_label'>
+                    {{ field.label }}
+                    {{ field }}
+                </span>
         {% endfor %}
-        <button>Submit</button>
+        <span>
+            <input type='submit' value='Add Day' class='btn btn-light' /> 
+        </span>
     </form>
+</div>
 {% endblock %}

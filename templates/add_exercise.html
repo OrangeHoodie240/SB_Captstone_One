@@ -3,11 +3,14 @@
 {% block title %} Add Exercise {% endblock %}
 {% block header %} Add Exercise {% endblock %}
 
-{% block main %} 
+{% block main %}
+<div class='add-exercise-img background'>
+    <br />
+    <div class='bg-light container'>
     <div class='container bg-light' id='workout-exercises-div-add-exercise'>
-       {% for ex in exercises %} 
-            {{ ex.order }}. {{ ex.name }}  
-       {% endfor %}
+        {% for ex in exercises %}
+        {{ ex.order }}. {{ ex.name }}
+        {% endfor %}
     </div>
 
     <div class='loading-div container' id='loading'>
@@ -16,33 +19,33 @@
     </div>
     <div class='add-exercise-form-container' id='filter_add_exercise'>
         <label for='muscle'>
-            Muscle: 
+            Muscle:
             <select name='muscle' id='muscle' disabled></select>
         </label>
         <label for='equipment'>
-            Equipment: 
+            Equipment:
             <select name='equipment' id='equipment' disabled></select>
         </label>
     </div>
 
     <div class='add-exercise-form-container'>
         <form id='add_exercise' action='/days/{{ id }}/exercises/add' method='POST'>
-            <label for='exercise' >
-                Exercise: 
+            <label for='exercise'>
+                Exercise:
                 <select name='exercise' id='exercise' disabled></select>
             </label>
             <label for='sets'>
-                Sets: 
-                <input type='number' min='1' max='50' value='3' name='sets' id='sets' disabled/>
+                Sets:
+                <input type='number' min='1' max='50' value='3' name='sets' id='sets' disabled />
             </label>
             <label for='sets'>
-                Reps: 
-                <input type='number' min='1' max='50' value='12' name='reps' id='reps' disabled/>
+                Reps:
+                <input type='number' min='1' max='50' value='12' name='reps' id='reps' disabled />
             </label>
-    
+
             <input type='hidden' value='' name='exerciseName' id='exerciseName' />
-    
-            <input type='submit' id='submit' disabled/>
+
+            <input type='submit' id='submit' disabled />
         </form>
     </div>
 
@@ -56,7 +59,8 @@
     <div class='d-grid'>
         <a class='btn btn-light' href='/workouts/{{ workout_id }}/days/{{ id }}'>Back To Routine</a>
     </div>
-
-    <script type='text/javascript' src='{{ url_for("static", filename="get_data.js") }}'></script>
-    <script type='text/javascript' src='{{ url_for("static", filename="add_exercise.js") }}'></script>
+    </div>
+</div>
+<script type='text/javascript' src='{{ url_for("static", filename="get_data.js") }}'></script>
+<script type='text/javascript' src='{{ url_for("static", filename="add_exercise.js") }}'></script>
 {% endblock %}

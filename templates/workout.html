@@ -1,47 +1,58 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %} {{ workout.name }} {% endblock %}
 {% block header %} {{ workout.name }} {% endblock %}
 
 {% block main %}
-        {% for day in workout.days %} 
-            <div class='list-group list-group-horizontal'>
-                <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}'>{{ day.weekday }}</a> 
-                <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}/delete'>Delete</a></li>
-            </div>
-            {% endfor %}
+<div class='workout-img background'>
+    <br />
+    <br />
+    <br />
 
-    {% if is_active %} 
+    <div class='bg-light'>
+        <h2>Workout Days</h2>
+        {% for day in workout.days %}
+        <div class='list-group list-group-horizontal'>
+            <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}'>{{ day.weekday
+                }}</a>
+            <a class='list-group-item flex-fill' href='/workouts/{{ workout.id }}/days/{{ day.id }}/delete'>Delete</a>
+            </li>
+        </div>
+        {% endfor %}
+
+        {% if is_active %}
         <p><span class='badge bg-light text-dark'>This is your active workout</span></p>
-    {% else %}
+        {% else %}
         <br />
         <div class='d-grid'>
             <button class='btn btn-light' id='make_active'>Make this your active workout</button>
         </div>
         <br />
-    {% endif %}
+        {% endif %}
 
-    {% if workout.days | length < 7 %}
-        <div class='d-grid'>
-            <a class='btn btn-light' href='/workouts/{{ workout.id }}/days/add'>Add Workout Day</a>
-        </div>
+        {% if workout.days | length < 7 %} <div class='d-grid'>
+            <a class='btn btn-secondary' href='/workouts/{{ workout.id }}/days/add'>Add Workout Day</a>
+    </div>
     {% endif %}
-
-    <label for='name'>
-        Change Name
-        <input type='text' value='{{ workout.name }}' id='name' name='name' />
-        <button id='change-button'>Change</button>
-    </label>
+    <div class='change-workout-name-form'>
+        <label for='name'>
+            Change Name
+            <input type='text' value='{{ workout.name }}' id='name' name='name' />
+            <button id='change-button' class='btn btn-secondary'>Change</button>
+        </label>
+    </div>
+   
 
     <input type='hidden' id='workout_id' value='{{ workout.id }}' />
 
-    
-
-
-    <br /> 
 
 
 
-    <script type='text/javascript' src='{{ url_for("static", filename="workout.js") }}'></script>
+    <br />
+
+
+</div>
+</div>
+<script type='text/javascript' src='{{ url_for("static", filename="workout.js") }}'></script>
 
 {% endblock %}

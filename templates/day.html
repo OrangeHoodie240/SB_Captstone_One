@@ -1,41 +1,47 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %} {{ day.weekday }} {% endblock %}
 
 {% block header %} {{ day.workout.name }} {{ day.weekday }} {% endblock %}
 
 {% block main %}
-    {% if day.exercises | length > 0 %}
-    <table class='table'>
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    Exercise
-                </th>
-                <th>
-                    Sets
-                </th>   
-                <th>
-                    Reps
-                </th>                
-                <th>
-                    Description
-                </th>
-                <th>
-                    Remove
-                </th> 
-                <th>
-                    Edit 
-                </th>    
-                <th></th> 
-                <th></th>         
-                <th></th>          
-                <th></th>          
-            </tr>
-        </thead>
-        <tbody id='exercises-tbody' data-day-id='{{ day.id }}' data-workout-id='{{ day.workout_id }}'>
-            {% for ex in day.exercises %}
+<div class='day-img background'>
+    <br />
+    <br />
+    <br />
+    <div class='bg-light'>
+
+        {% if day.exercises | length > 0 %}
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Exercise
+                    </th>
+                    <th>
+                        Sets
+                    </th>
+                    <th>
+                        Reps
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Remove
+                    </th>
+                    <th>
+                        Edit
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id='exercises-tbody' data-day-id='{{ day.id }}' data-workout-id='{{ day.workout_id }}'>
+                {% for ex in day.exercises %}
                 <tr>
                     <td>
                         {{ ex.order }}
@@ -44,13 +50,14 @@
                         {{ ex.name }}
                     </td>
                     <td class='sets'>
-                    {{ ex.sets }}
+                        {{ ex.sets }}
                     </td>
                     <td class='reps'>
                         {{ ex.reps }}
                     </td>
                     <td>
-                        <a href='/exercises/description?id={{ ex.exercise }}&name={{ ex.name }}'>description</a>
+                        <a href='/exercises/description?id={{ ex.exercise }}&name={{ ex.name }}'><i
+                                class="fas fa-info-circle text-dark"></i></a>
                     </td>
                     <td>
                         <i class="fa fa-trash delete" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
@@ -60,25 +67,26 @@
                     </td>
                     <td>
                         {% if ex.order != 1 %}
-                            <i class="fa fa-arrow-up up" aria-hidden="true"  data-exercise-id='{{ ex.id }}'></i>
+                        <i class="fa fa-arrow-up up" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
                         {% endif %}
                     </td>
                     <td>
                         {% if ex.order != last %}
-                            <i class="fa fa-arrow-down down" aria-hidden="true"  data-exercise-id='{{ ex.id }}'></i>
+                        <i class="fa fa-arrow-down down" aria-hidden="true" data-exercise-id='{{ ex.id }}'></i>
                         {% endif %}
                     </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
-    {% if day.exercises | length <= 12 %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if day.exercises | length
+        <= 12 %} 
         <div class='d-grid'>
             <a class='btn btn-light' href='/days/{{ day.id }}/exercises/add'>Add Exercise</a>
-        </div>    
-    {% endif %}
-
-
-    <script type='text/javascript' src='{{ url_for("static", filename="day.js") }}'></script>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script type='text/javascript' src='{{ url_for("static", filename="day.js") }}'></script>
 {% endblock %}
