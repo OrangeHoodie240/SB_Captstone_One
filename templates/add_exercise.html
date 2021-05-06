@@ -12,6 +12,8 @@
         {{ ex.order }}. {{ ex.name }}
         {% endfor %}
     </div>
+    <br /> 
+    <br />
 
     <div class='loading-div container' id='loading'>
         LOADING
@@ -27,6 +29,8 @@
             <select name='equipment' id='equipment' disabled></select>
         </label>
     </div>
+
+    <br />
 
     <div class='add-exercise-form-container'>
         <form id='add_exercise' action='/days/{{ id }}/exercises/add' method='POST'>
