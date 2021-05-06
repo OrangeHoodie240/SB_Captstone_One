@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 h1 { 
     margin-left: 10%;
 }
@@ -55,6 +59,7 @@ h1 {
 .background {
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     height: 100vh; 
 }
 
@@ -107,11 +112,12 @@ h1 {
     margin-top: 3%;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 800px){
     .brand-sm {
         display: inline-block; 
         margin-right: auto;
     }   
+    
     .brand-lg {
         display: none;
     }
@@ -120,5 +126,19 @@ h1 {
     }
 }
 
+
+@media screen and (max-width: 395px){
+    .brand-sm {
+        display: inline-block; 
+        margin-right: auto;
+    }   
+    
+    .brand-lg {
+        display: none;
+    }
+    .login-register-form {
+        width: 100%;
+    }
+}
 
 
