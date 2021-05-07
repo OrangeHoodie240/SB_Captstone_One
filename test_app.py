@@ -105,3 +105,22 @@ class TestApp(TestCase):
 
             count = WorkoutDay.query.filter((WorkoutDay.weekday=='friday') & (WorkoutDay.workout_id == workout_id)).count() 
             self.assertEquals(count, 0)
+
+
+    def test_add_exercise(self):
+        user_id = db.session.query(User.id).filter(User.username  == 'catcatcat').one()[0]
+        workout_id = db.session.query(Workout.id).filter(Workout.name == 'Cat Workout').one()[0]
+        day_id = db.session.query(WorkoutDay.id).filter((WorkoutDay.weekday=='friday') & (WorkoutDay.workout_id == workout_id)).one()[0]
+
+        with app.test_client() as client: 
+            with client.session_transaction() as change_session: 
+                change_session['user_id'] = user_id
+
+            before_count = Exercise.query.filter(Exercise.workout_day_id == day_id).count() 
+
+            body = {'workout_day_id': day_id, 'exercise': 191, 'sets': 3, 'reps': 12, 'name': 'Front Squats', 'order': 1}
+            resp = client.post(f'/api/days/{day_id}/exercises', json=body, headers={'Content-Type': 'application/json', 'credentials': 'include'})
+            self.assertEquals(resp.status_code, 200)
+
+            after_count = Exercise.query.filter(Exercise.workout_day_id == day_id).count() 
+            self.assertEqual(before_count + 1, after_count)
